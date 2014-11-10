@@ -9,9 +9,15 @@ namespace TimeSheets.Core.Model
 {
     public class Branch
     {
+        public Branch()
+        {
+            Devices = new List<Device>();
+        }
         [Key]
-        public int Id;
+        public int Id { get; set; }
         [Required]
-        public string Name;
+        public string Name { get; set; }
+
+        public virtual ICollection<Device> Devices { get; set; } 
     }
 }

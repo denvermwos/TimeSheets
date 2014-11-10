@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace TimeSheets.Core.Model
 {
-    public class User
+    public class User : Staff
     {
-        public int Id;
-        public int StaffNumber;
-        public int Name;
+        
 
     }
 }
