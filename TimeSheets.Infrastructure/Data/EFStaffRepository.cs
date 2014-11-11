@@ -14,5 +14,10 @@ namespace TimeSheets.Infrastructure.Data
         {
             _timeSheetsContext = timeSheetsContext;
         }
+
+        public IEnumerable<Core.Model.Staff> GetAllStaff()
+        {
+            return _timeSheetsContext.Staff.ToList();
+        }
     }
 }

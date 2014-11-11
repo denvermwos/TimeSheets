@@ -15,6 +15,6 @@ namespace TimeSheets.Core.Interfaces
         IUserRepository UserRepository { get; }
         IScanRepository ScanRepository { get; }
 
-        Boolean SaveChanges();
+        void SaveChanges();
     }
 }

@@ -1,3 +1,6 @@
+using TimeSheets.Core.Interfaces;
+using TimeSheets.Infrastructure.Data;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TimeSheets.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TimeSheets.Web.App_Start.NinjectWebCommon), "Stop")]
 
@@ -61,6 +64,7 @@ namespace TimeSheets.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>();
         }        
     }
 }

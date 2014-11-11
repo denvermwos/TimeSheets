@@ -13,7 +13,7 @@ namespace TimeSheets.Infrastructure.Data
     {
         public TimeSheetsContext() : base("TimeSheetsDb")
         {
-            
+            Database.SetInitializer<TimeSheetsContext>(new TimeSheetsDbInitialiser());
         }
 
         public DbSet<Branch> Branches { get; set; }

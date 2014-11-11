@@ -33,7 +33,7 @@ namespace TimeSheets.Core.Services
                 try
                 {
                     _iUnitOfWork.ScanRepository.SaveMultiple(scans);
-                    Boolean SaveSuccessful = _iUnitOfWork.SaveChanges();
+                    _iUnitOfWork.SaveChanges();
                 }
                 catch (Exception ex)
                 {

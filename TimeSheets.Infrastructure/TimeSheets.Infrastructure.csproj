@@ -54,6 +54,7 @@
     <Compile Include="Data\EFShiftRepository.cs" />
     <Compile Include="Data\EFStaffRepository.cs" />
     <Compile Include="Data\EFUserRepository.cs" />
+    <Compile Include="Data\TimeSheetsDbInitialiser.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\MyMembershipProvder.cs" />
