@@ -13,7 +13,7 @@
     <tr>
         <th></th>
     </tr>
-
+    @Html.ActionLink("Goto Shifts","Index","Shift");
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -28,3 +28,4 @@
 }
 
 </table>
+@DateTime.Today

@@ -14,5 +14,15 @@ namespace TimeSheets.Infrastructure.Data
         {
             _timeSheetsContext = timeSheetsContext;
         }
+
+        public IEnumerable<Core.Model.Shift> GetShiftsForDay(DateTime day)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Create(Core.Model.Shift shift)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

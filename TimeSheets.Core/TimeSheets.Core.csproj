@@ -53,9 +53,11 @@
     <Compile Include="Model\Scan.cs" />
     <Compile Include="Model\Shift.cs" />
     <Compile Include="Model\Staff.cs" />
+    <Compile Include="Model\StaffShift.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DeviceToDatabaseCopyService.cs" />
+    <Compile Include="Services\ShiftService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

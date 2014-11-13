@@ -11,11 +11,16 @@ namespace TimeSheets.Core.Model
         public Staff() 
         {
             Scans = new List<Scan>();
+            StaffShifts = new List<StaffShift>();
+            Branches = new List<Branch>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<Scan> Scans { get; set; }
+        public virtual ICollection<StaffShift> StaffShifts { get; set; } 
+        public virtual ICollection<Branch> Branches { get; set; } 
+
 
         
 

@@ -16,12 +16,18 @@ namespace TimeSheets.Infrastructure.Data
             defaultStaff.Add(new Staff(){Id = 13, Name = "Denver Naidoo"});
             defaultStaff.Add(new Staff() { Id = 372, Name = "Rodney Reddy" });
             defaultStaff.Add(new Staff() { Id = 277, Name = "Shantal Govender" });
-
             foreach (Staff staff in defaultStaff)
             {
                 context.Staff.Add(staff);
             }
 
+
+            context.Branches.Add(new Branch() {Id = 1,Name = "Verulam"});
+
+            IList<Shift> defaultShifts  = new List<Shift>();
+            defaultShifts.Add(new Shift(){BranchId = 1, StartDateTime = DateTime.Now, FinishDateTime = DateTime.Now.AddHours(4)});
+            defaultShifts.Add(new Shift() { BranchId = 1, StartDateTime = DateTime.Now.AddHours(4), FinishDateTime = DateTime.Now.AddHours(8) });
+            
 
             base.Seed(context);
         }
