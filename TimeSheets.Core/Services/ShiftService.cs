@@ -17,9 +17,9 @@ namespace TimeSheets.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Shift> GetShifts(DateTime dateTime)
+        public IEnumerable<Shift> GetShifts(Branch branch, DateTime dateTime)
         {
-            return new List<Shift>();
+            return _unitOfWork.ShiftRepository.GetShiftsForDay(branch, dateTime);
         }
 
         public bool DeleteShift()

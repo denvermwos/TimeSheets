@@ -9,7 +9,8 @@ namespace TimeSheets.Core.Interfaces
 {
     public interface IShiftRepository
     {
-        IEnumerable<Shift> GetShiftsForDay(DateTime day);
+        IEnumerable<Shift> GetShiftsForDay(Branch branch, DateTime day);
+        IEnumerable<Shift> GetAllShifts(); 
         void Create(Shift shift);
 
     }

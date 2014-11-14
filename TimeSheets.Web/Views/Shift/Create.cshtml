@@ -1,0 +1,50 @@
+﻿@model TimeSheets.Core.Model.Shift
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Shift</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartDateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartDateTime)
+            @Html.ValidationMessageFor(model => model.StartDateTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FinishDateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FinishDateTime)
+            @Html.ValidationMessageFor(model => model.FinishDateTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BranchId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BranchId)
+            @Html.ValidationMessageFor(model => model.BranchId)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

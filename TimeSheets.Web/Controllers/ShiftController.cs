@@ -23,7 +23,7 @@ namespace TimeSheets.Web.Controllers
         public ActionResult Index()
         {
             //todo list of shift for today
-            IEnumerable<Shift> todayShifts = _shiftService.GetShifts(DateTime.Today);
+            IEnumerable<Shift> todayShifts = _shiftService.GetShifts(new Branch(){Id=1,Name= "Verulam"}, DateTime.Today);
             return View(todayShifts);
         }
         public ActionResult Date(DateTime dateTime)

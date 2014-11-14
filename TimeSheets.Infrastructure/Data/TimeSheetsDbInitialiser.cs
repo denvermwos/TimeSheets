@@ -27,7 +27,10 @@ namespace TimeSheets.Infrastructure.Data
             IList<Shift> defaultShifts  = new List<Shift>();
             defaultShifts.Add(new Shift(){BranchId = 1, StartDateTime = DateTime.Now, FinishDateTime = DateTime.Now.AddHours(4)});
             defaultShifts.Add(new Shift() { BranchId = 1, StartDateTime = DateTime.Now.AddHours(4), FinishDateTime = DateTime.Now.AddHours(8) });
-            
+            foreach (Shift shift in defaultShifts)
+            {
+                context.Shifts.Add(shift);
+            }
 
             base.Seed(context);
         }
