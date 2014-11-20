@@ -22,14 +22,17 @@ namespace TimeSheets.Core.Services
             return _unitOfWork.ShiftRepository.GetShiftsForDay(branch, dateTime);
         }
 
+        
+
         public bool DeleteShift()
         {
             return true;
         }
 
-        public bool AddShift(Shift shift)
+        public void CreateShift(Shift shift)
         {
-            return true;
+            _unitOfWork.ShiftRepository.Create(shift);
+            _unitOfWork.SaveChanges();
         }
 
     }

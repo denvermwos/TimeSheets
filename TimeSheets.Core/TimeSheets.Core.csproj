@@ -57,6 +57,7 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DeviceToDatabaseCopyService.cs" />
+    <Compile Include="Services\GetActualTimesFromScans.cs" />
     <Compile Include="Services\ShiftService.cs" />
   </ItemGroup>
   <ItemGroup />

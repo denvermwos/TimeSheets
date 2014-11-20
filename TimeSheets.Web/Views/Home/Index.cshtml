@@ -1,31 +1,10 @@
 ﻿@model IEnumerable<TimeSheets.Core.Model.Staff>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "TimeSheets";
 }
 
-<h2>Index</h2>
+<h2>TimeSheets</h2>
+ @Html.ActionLink("Goto Shifts","Index","Shift");
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th></th>
-    </tr>
-    @Html.ActionLink("Goto Shifts","Index","Shift");
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.Name
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
-            @Html.ActionLink("Details", "Details", new {  id=item.Id  }) |
-            @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
-        </td>
-    </tr>
-}
 
-</table>
-@DateTime.Today

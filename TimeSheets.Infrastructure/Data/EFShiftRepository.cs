@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,15 +17,15 @@ namespace TimeSheets.Infrastructure.Data
             _timeSheetsContext = timeSheetsContext;
         }
 
-        public IEnumerable<Core.Model.Shift> GetShiftsForDay(Branch branch,DateTime day)
+        public IEnumerable<Shift> GetShiftsForDay(Branch branch,DateTime day)
         {
             return _timeSheetsContext.Shifts.Where(x => x.StartDateTime.Year == day.Year && x.StartDateTime.Month == day.Month && x.StartDateTime.Day == day.Day && x.BranchId == branch.Id).ToList();
             
         }
 
-        public void Create(Core.Model.Shift shift)
+        public void Create(Shift shift)
         {
-            throw new NotImplementedException();
+                _timeSheetsContext.Shifts.Add(shift);
         }
 
 

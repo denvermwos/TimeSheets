@@ -15,6 +15,7 @@ namespace TimeSheets.Core.Model
             Branches = new List<Branch>();
         }
         public int Id { get; set; }
+        public int StaffNumber { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<Scan> Scans { get; set; }

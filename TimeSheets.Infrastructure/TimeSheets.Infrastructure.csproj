@@ -71,6 +71,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\SQL\CreateFunctionReturnEarlierDate.sql" />
+    <Content Include="Data\SQL\CreateFunctionReturnLaterDate.sql" />
+    <Content Include="Data\SQL\CreateProcedureSetActualStartAndFinishDateTimes.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

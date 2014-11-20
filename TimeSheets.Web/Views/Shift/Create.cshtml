@@ -1,50 +1,85 @@
-﻿@model TimeSheets.Core.Model.Shift
+﻿
+<div class="container">
+    @model TimeSheets.Core.Model.Shift
 
-@{
-    ViewBag.Title = "Create";
-}
+    @{
+        ViewBag.Title = "Create";
+    }
+    <h2>Create</h2>
 
-<h2>Create</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+        <fieldset>
+            <legend>Shift</legend>
 
-    <fieldset>
-        <legend>Shift</legend>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StartDateTime)
+            </div>
+            <div class="editor-field">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            @* todo make bootstrap datetimepicker a html helper *@
+                            @* todo why does jquery expect one format, and mvc server expect another for dates? *@
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' class="form-control"   id="StartDateTime" name ="StartDateTime" data-val="true" data-val-date="The field Shift Start Time must be a date." data-val-required="The Shift Start Time field is required." type="datetime"
+                                       data-date-format="DD/MM/YYYY HH:mm:ss"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker1').datetimepicker();
+                        });
+                    </script>
+                </div>
+                @Html.ValidationMessageFor(model => model.StartDateTime)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StartDateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.StartDateTime)
-            @Html.ValidationMessageFor(model => model.StartDateTime)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FinishDateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FinishDateTime)
-            @Html.ValidationMessageFor(model => model.FinishDateTime)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FinishDateTime)
+            </div>
+            <div class="editor-field">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker2'>
+                                <input type='text' class="form-control"  id="FinishDateTime" name ="FinishDateTime" data-val="true" data-val-date="The field Shift Finish Time must be a date." data-val-required="The Shift Finish Time field is required." type="datetime"
+                                    data-date-format="DD/MM/YYYY HH:mm:ss"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker2').datetimepicker();
+                        });
+                    </script>
+                </div>
+                @Html.ValidationMessageFor(model => model.FinishDateTime)
+            </div>
+            
+            
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.BranchId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.BranchId)
-            @Html.ValidationMessageFor(model => model.BranchId)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts{
+
+}
 
 

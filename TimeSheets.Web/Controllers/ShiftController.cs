@@ -23,7 +23,7 @@ namespace TimeSheets.Web.Controllers
         public ActionResult Index()
         {
             //todo list of shift for today
-            IEnumerable<Shift> todayShifts = _shiftService.GetShifts(new Branch(){Id=1,Name= "Verulam"}, DateTime.Today);
+            IEnumerable<Shift> todayShifts = _shiftService.GetShifts(new Branch() { Id = 1, Name = "Verulam" }, DateTime.Today);
             return View(todayShifts);
         }
         public ActionResult Date(DateTime dateTime)
@@ -32,20 +32,32 @@ namespace TimeSheets.Web.Controllers
             return View();
         }
 
+
         [HttpGet]
         [ActionName("Create")]
-        public ActionResult Create()
+        public ActionResult Create_Get()
         {
             return View();
         }
 
         [HttpPost]
         [ActionName("Create")]
-        public ActionResult Create(Shift shift)
+        public ActionResult Create_Post()
         {
-            return View();
-        }
+            Shift shift = new Shift(){BranchId = 1};//todo get BranchId from logged in user after setting membership provider
+            UpdateModel(shift);
+            if (ModelState.IsValid)
+            {
+                _shiftService.CreateShift(shift);
+                return RedirectToAction("Index");
+                
+            }
+            else
+            {
 
+                return View(shift);
+            }
+        }
         public ActionResult Delete()
         {
             return View();
