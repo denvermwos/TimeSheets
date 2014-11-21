@@ -1,6 +1,6 @@
 ﻿
 <div class="container">
-    @model TimeSheets.Core.Model.Shift
+    @model TimeSheets.Web.ViewModels.ShiftVM.ShiftCreateViewModel
 
     @{
         ViewBag.Title = "Create";
@@ -16,7 +16,7 @@
             <legend>Shift</legend>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.StartDateTime)
+                @Html.LabelFor(model => model.Shift.StartDateTime)
             </div>
             <div class="editor-field">
                 <div class="row">
@@ -38,12 +38,12 @@
                         });
                     </script>
                 </div>
-                @Html.ValidationMessageFor(model => model.StartDateTime)
+                @Html.ValidationMessageFor(model => model.Shift.StartDateTime)
             </div>
 
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.FinishDateTime)
+                @Html.LabelFor(model => model.Shift.FinishDateTime)
             </div>
             <div class="editor-field">
                 <div class="row">
@@ -63,7 +63,7 @@
                         });
                     </script>
                 </div>
-                @Html.ValidationMessageFor(model => model.FinishDateTime)
+                @Html.ValidationMessageFor(model => model.Shift.FinishDateTime)
             </div>
             
             

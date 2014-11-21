@@ -56,6 +56,7 @@ namespace TimeSheets.Infrastructure.Data
 
             StaffShift defaultStaffShift = new StaffShift() { ShiftId = 1, StaffId = 1, PaidStartTime = DateTime.Now, PaidFinishTime = DateTime.Now, };
             context.StaffShifts.Add(defaultStaffShift);
+            ExecuteSqlScriptsToCreateStoredProcsAndFunctions(context);
             base.Seed(context);
         }
 
@@ -70,8 +71,7 @@ namespace TimeSheets.Infrastructure.Data
             var sqlFilesDirectory = Path.Combine(projectDirectory, "Data\\Sql");
 
             var sqlFiles =
-            Directory.GetFiles(@"C:\Users\administrator\Documents\visual studio 2012\Projects\TimeSheets\TimeSheets.Infrastructure\Data\SQL"
-                , "*.sql");
+            Directory.GetFiles(sqlFilesDirectory, "*.sql");
 
             foreach (var file in sqlFiles)
             {

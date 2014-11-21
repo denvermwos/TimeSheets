@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using TimeSheets.Core.Interfaces;
 using TimeSheets.Core.Model;
+using TimeSheets.Web.ViewModels.HomeVM;
 
 namespace TimeSheets.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         //
@@ -20,7 +21,9 @@ namespace TimeSheets.Web.Controllers
         public ActionResult Index()
         {
             IEnumerable<Staff> staff = _unitOfWork.StaffRepository.GetAllStaff();
-            return View(staff);
+            HomeIndexViewModel viewModel = new HomeIndexViewModel();
+            viewModel.StaffList = staff;
+            return View(viewModel);
         }
 
     }

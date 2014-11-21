@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TimeSheets.Core.Model.Shift>
+﻿@model TimeSheets.Web.ViewModels.ShiftVM.ShiftIndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -13,7 +13,7 @@
     </tr>
     
 
-@foreach (var item in Model) {
+@foreach (var item in Model.ShiftList) {
     <tr>
         <td>
             @item.StartDateTime.ToString("HH:mm") - @item.FinishDateTime.ToString("HH:mm")

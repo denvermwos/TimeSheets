@@ -8,7 +8,7 @@ namespace TimeSheets.Core.Model
 {
     public class User : Staff
     {
-        
+        public string EmailAddress { get; set; }
 
     }
 }

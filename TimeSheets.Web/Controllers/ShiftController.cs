@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using TimeSheets.Core.Model;
 using TimeSheets.Core.Services;
+using TimeSheets.Web.ViewModels.ShiftVM;
 
 namespace TimeSheets.Web.Controllers
 {
-    public class ShiftController : Controller
+    public class ShiftController : BaseController
     {
         private ShiftService _shiftService;
 
@@ -24,7 +25,9 @@ namespace TimeSheets.Web.Controllers
         {
             //todo list of shift for today
             IEnumerable<Shift> todayShifts = _shiftService.GetShifts(new Branch() { Id = 1, Name = "Verulam" }, DateTime.Today);
-            return View(todayShifts);
+            ShiftIndexViewModel viewModel = new ShiftIndexViewModel();
+            viewModel.ShiftList = todayShifts;
+            return View(viewModel);
         }
         public ActionResult Date(DateTime dateTime)
         {
@@ -37,7 +40,8 @@ namespace TimeSheets.Web.Controllers
         [ActionName("Create")]
         public ActionResult Create_Get()
         {
-            return View();
+            ShiftCreateViewModel viewModel = new ShiftCreateViewModel();
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -54,8 +58,9 @@ namespace TimeSheets.Web.Controllers
             }
             else
             {
-
-                return View(shift);
+                ShiftCreateViewModel viewModel = new ShiftCreateViewModel();
+                viewModel.Shift = shift;
+                return View(viewModel);
             }
         }
         public ActionResult Delete()

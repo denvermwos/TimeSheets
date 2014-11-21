@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model TimeSheets.Web.ViewModels.SharedVM.SharedLayoutViewModel
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -13,13 +14,15 @@
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     
 </head>
-<body>
+    <body>
+        
+        Logged in as @Model.Name
         <div>
             @RenderBody()
         </div>
 
-@*    <script src="~/Scripts/jquery.validate.min.js"></script>
+        @*    <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
-    @RenderSection("Scripts", false)
-</body>
+        @RenderSection("Scripts", false)
+    </body>
 </html>
