@@ -21,9 +21,10 @@ namespace TimeSheets.Web.Controllers
         public ActionResult Index()
         {
             IEnumerable<Staff> staff = _unitOfWork.StaffRepository.GetAllStaff();
-            HomeIndexViewModel viewModel = new HomeIndexViewModel();
+            var viewModel = new HomeIndexViewModel();
             viewModel.StaffList = staff;
             return View(viewModel);
+            
         }
 
     }

@@ -9,6 +9,9 @@ namespace TimeSheets.Web.ViewModels.HomeVM
 {
     public class HomeIndexViewModel : SharedLayoutViewModel
     {
-        public IEnumerable<Staff> StaffList;
+
+        public IEnumerable<Staff> StaffList; 
+        public IEnumerable<Shift> ShiftList; 
+        
     }
 }

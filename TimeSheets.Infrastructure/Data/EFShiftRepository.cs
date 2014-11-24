@@ -19,7 +19,7 @@ namespace TimeSheets.Infrastructure.Data
 
         public IEnumerable<Shift> GetShiftsForDay(Branch branch,DateTime day)
         {
-            return _timeSheetsContext.Shifts.Where(x => x.StartDateTime.Year == day.Year && x.StartDateTime.Month == day.Month && x.StartDateTime.Day == day.Day && x.BranchId == branch.Id).ToList();
+            return _timeSheetsContext.Shifts.Include("StaffShifts.Staff").Where(x => x.StartDateTime.Year == day.Year && x.StartDateTime.Month == day.Month && x.StartDateTime.Day == day.Day && x.BranchId == branch.Id).ToList();
             
         }
 

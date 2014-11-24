@@ -48,13 +48,13 @@ namespace TimeSheets.Web.Controllers
         [ActionName("Create")]
         public ActionResult Create_Post()
         {
-            Shift shift = new Shift(){BranchId = 1};//todo get BranchId from logged in user after setting membership provider
+            Shift shift = new Shift() { BranchId = 1 };//todo get BranchId from logged in user after setting membership provider
             UpdateModel(shift);
             if (ModelState.IsValid)
             {
                 _shiftService.CreateShift(shift);
                 return RedirectToAction("Index");
-                
+
             }
             else
             {
@@ -63,6 +63,13 @@ namespace TimeSheets.Web.Controllers
                 return View(viewModel);
             }
         }
+
+        public ActionResult AddRemoveStaff()
+        {
+            return View();
+        }
+
+
         public ActionResult Delete()
         {
             return View();

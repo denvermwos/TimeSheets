@@ -1,4 +1,5 @@
-﻿@model TimeSheets.Web.ViewModels.ShiftVM.ShiftIndexViewModel
+﻿@using TimeSheets.Core.Model
+@model TimeSheets.Web.ViewModels.ShiftVM.ShiftIndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -6,22 +7,28 @@
 
 <h2>Shifts</h2>
 
+@foreach (var shift in Model.ShiftList)
+{
+    <table class="table table-striped">
 
-<table>
-    <tr>
-        <th></th>
-    </tr>
-    
-
-@foreach (var item in Model.ShiftList) {
-    <tr>
-        <td>
-            @item.StartDateTime.ToString("HH:mm") - @item.FinishDateTime.ToString("HH:mm")
-        </td>
-    </tr>
+        <tr>
+            <th>
+                @shift.StartDateTime.ToString("HH:mm") - @shift.FinishDateTime.ToString("HH:mm")
+            </th>
+            <th>
+                @Html.ActionLink("Add / Remove Staff","AddRemoveStaff")
+            </th>
+        </tr>
+        @foreach (var staffShift in shift.StaffShifts)
+        {
+            <tr >
+                <td colspan="2">@staffShift.Staff.Name</td>
+            </tr>
+        }
+    </table>
 }
 
-</table>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
