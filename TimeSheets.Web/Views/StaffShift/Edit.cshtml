@@ -1,0 +1,112 @@
+﻿@using TimeSheets.Core.Model
+@model TimeSheets.Web.ViewModels.StaffShiftVM.StaffShiftEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    }
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+        <fieldset>
+            <legend>StaffShift</legend>
+            @Html.HiddenFor(model => model.StaffShift.Id)
+
+            
+
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.PaidStartTime)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.PaidStartTime)
+                @Html.ValidationMessageFor(model => model.StaffShift.PaidStartTime)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.PaidFinishTime)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.PaidFinishTime)
+                @Html.ValidationMessageFor(model => model.StaffShift.PaidFinishTime)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.NoSignInPenaltyApplied)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.NoSignInPenaltyApplied)
+                @Html.ValidationMessageFor(model => model.StaffShift.NoSignInPenaltyApplied)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.NoSignOutPenaltyApplied)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.NoSignOutPenaltyApplied)
+                @Html.ValidationMessageFor(model => model.StaffShift.NoSignOutPenaltyApplied)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.TookLunchBreak)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.TookLunchBreak)
+                @Html.ValidationMessageFor(model => model.StaffShift.TookLunchBreak)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.LunchBreakDuration)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.LunchBreakDuration)
+                @Html.ValidationMessageFor(model => model.StaffShift.LunchBreakDuration)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.LunchBreakDurationTicks)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.LunchBreakDurationTicks)
+                @Html.ValidationMessageFor(model => model.StaffShift.LunchBreakDurationTicks)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.StartTimeVerifiedWithScan)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.StartTimeVerifiedWithScan)
+                @Html.ValidationMessageFor(model => model.StaffShift.StartTimeVerifiedWithScan)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.FinishTimeVerifiedWithScan)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.FinishTimeVerifiedWithScan)
+                @Html.ValidationMessageFor(model => model.StaffShift.FinishTimeVerifiedWithScan)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StaffShift.DoNotDelete)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StaffShift.DoNotDelete)
+                @Html.ValidationMessageFor(model => model.StaffShift.DoNotDelete)
+            </div>
+
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index","Shift")
+    </div>
+</div>
+@section Scripts {
+
+}

@@ -12,6 +12,10 @@ namespace TimeSheets.Core.Interfaces
         IEnumerable<Shift> GetShiftsForDay(Branch branch, DateTime day);
         IEnumerable<Shift> GetAllShifts(); 
         void Create(Shift shift);
+        Shift GetShiftByIdIncludeStaff(int id);
+        void AddStaffToShift(IEnumerable<int> staffIds,int shiftId);
 
+
+        void RemoveStaffFromShift(IEnumerable<int> staffIds, int shiftId);
     }
 }

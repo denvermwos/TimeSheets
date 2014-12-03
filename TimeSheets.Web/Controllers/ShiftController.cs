@@ -12,10 +12,12 @@ namespace TimeSheets.Web.Controllers
     public class ShiftController : BaseController
     {
         private ShiftService _shiftService;
+        private readonly StaffService _staffService;
 
-        public ShiftController(ShiftService shiftService)
+        public ShiftController(ShiftService shiftService, StaffService staffService)
         {
             _shiftService = shiftService;
+            _staffService = staffService;
         }
 
         //
@@ -58,21 +60,32 @@ namespace TimeSheets.Web.Controllers
             }
             else
             {
-                ShiftCreateViewModel viewModel = new ShiftCreateViewModel();
+                var viewModel = new ShiftCreateViewModel();
                 viewModel.Shift = shift;
                 return View(viewModel);
             }
         }
 
-        public ActionResult AddRemoveStaff()
+        [HttpGet]
+        public ActionResult AddRemoveStaff(int id)
         {
-            return View();
+            var viewModel = new ShiftAddRemoveViewModel();
+            Shift shift = _shiftService.GetShiftForAddRemoveStaff(id);
+            viewModel.Shift = shift;
+            viewModel.StaffAvailableForShift = _staffService.GetStaffAvailableToWorkThisShift(shift);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddRemoveStaff(ICollection<int> staffIdsToAdd, ICollection<int> staffIdsToRemove, int shiftId)
+        {
+            _shiftService.AddStaffWithGivenIdsToShift(staffIdsToAdd, shiftId);
+            _shiftService.RemoveStaffWithGivenIdsFromShift(staffIdsToRemove, shiftId);
+
+            return RedirectToAction("Index");
         }
 
 
-        public ActionResult Delete()
-        {
-            return View();
-        }
+
     }
 }

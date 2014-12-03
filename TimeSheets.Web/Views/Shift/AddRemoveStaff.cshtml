@@ -1,0 +1,97 @@
+﻿@using System.Activities.Statements
+@using System.Runtime.Remoting.Messaging
+@using TimeSheets.Core.Model
+@model TimeSheets.Web.ViewModels.ShiftVM.ShiftAddRemoveViewModel
+
+@{
+    ViewBag.Title = "AddRemoveStaff";
+}
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        
+
+        <h2>Add / Remove Staff - Shift @Model.Shift.StartDateTime.ToString("HH:mm") to @Model.Shift.FinishDateTime.ToString("HH:mm")</h2>
+
+        <table class="table table-striped table-hover table-bordered">
+            <th class="tab">Name
+            </th>
+            <th>Working
+            </th>
+            @if (Model.StaffAvailableForShift != null && Model.StaffAvailableForShift.Count() !=0)
+            {
+                foreach (var staff in Model.StaffAvailableForShift)
+                 {
+                     <tr>
+                         <td>
+                             @staff.Name
+                         </td>
+                         <td>
+                             @{
+                                 var IsInShift = Model.Shift.StaffShifts.Any(x => x.StaffId == staff.Id);
+                             }
+                             @if (IsInShift)
+                             {
+                                 <input name="staffInShift" type="checkbox" checked="true" value="@staff.Id.ToString()"/>
+                                 <input name="staffIdsToRemove"type="hidden" value="@staff.Id.ToString()"  disabled="true"/>
+                                 <input name="staffIdsToAdd"type="hidden" value="@staff.Id.ToString()"  disabled="true"/>
+                             }
+                             else
+                             {
+                                 <input name="staffNotInShift" type="checkbox" name="ints" value="@staff.Id.ToString()"/>
+                                 <input name="staffIdsToRemove"type="hidden" value="@staff.Id.ToString()" disabled="true"/>
+                                 <input name="staffIdsToAdd"type="hidden" value="@staff.Id.ToString()"  disabled="true"/>
+                             }
+                         </td>
+                     </tr>
+                 }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2"><span class="text-muted">No staff availabe to work shift</span></td>
+                </tr>
+            }
+        </table>
+        <input type="hidden" name="shiftId" value="@Model.Shift.Id"/>
+        <div>
+            <input type="submit" value="Save" class="btn btn-success" />
+            @Html.ActionLink("Cancel", "Index", "Shift", null, new { @class = "btn btn-danger" })
+        </div>
+        
+    }
+    @section Scripts
+    {
+        <script>
+            var testnum = 1;
+            $("input[type='checkbox']").change(function ()
+            {
+                var staffId = this.value;
+                if (this.checked)
+                {
+                    if (this.name == "staffNotInShift")
+                    {
+                        $("input[type='hidden'][name='staffIdsToAdd'][value='" + staffId + "']").prop("disabled", false);
+                    }
+                    else if (this.name == "staffInShift")
+                    {
+                        $("input[type='hidden'][name='staffIdsToAdd'][value='" + staffId + "']").prop('disabled', true);
+                        $("input[type='hidden'][name='staffIdsToRemove'][value='" + staffId + "']").prop('disabled', true);
+                    }
+                } else
+                {
+                    if (this.name == "staffNotInShift")
+                    {
+                        $("input[type='hidden'][name='staffIdsToRemove'][value='" + staffId + "']").prop('disabled', true);
+                        $("input[type='hidden'][name='staffIdsToAdd'][value='" + staffId + "']").prop('disabled', true);
+                    }
+                    else if (this.name == "staffInShift")
+                    {
+                        $("input[type='hidden'][name='staffIdsToRemove'][value='" + staffId + "']").prop("disabled", false);
+
+                    }
+                }
+            });
+        </script>
+    }
+</div>

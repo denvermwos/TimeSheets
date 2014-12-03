@@ -9,11 +9,11 @@ using TimeSheets.Core.Model;
 
 namespace TimeSheets.Infrastructure.Data
 {
-    class TimeSheetsDbInitialiser : DropCreateDatabaseAlways<TimeSheetsContext>
+    public class TimeSheetsDbInitialiser : DropCreateDatabaseAlways<TimeSheetsContext>
     {
         protected override void Seed(TimeSheetsContext context)
         {
-            IList<Staff> defaultStaff = new List<Staff>();
+            var defaultStaff = new List<Staff>();
             defaultStaff.Add(new Staff() { Id = 1, StaffNumber = 13, Name = "Denver Naidoo" });
             defaultStaff.Add(new Staff() { Id = 2, StaffNumber = 372, Name = "Rodney Reddy" });
             defaultStaff.Add(new Staff() { Id = 3, StaffNumber = 277, Name = "Shantal Govender" });
@@ -25,9 +25,9 @@ namespace TimeSheets.Infrastructure.Data
 
             context.Branches.Add(new Branch() { Id = 1, Name = "Verulam" });
 
-            IList<Shift> defaultShifts = new List<Shift>();
+            var defaultShifts = new List<Shift>();
             defaultShifts.Add(new Shift() { BranchId = 1, StartDateTime = DateTime.Now, FinishDateTime = DateTime.Now.AddHours(4) });
-            defaultShifts.Add(new Shift() { BranchId = 1, StartDateTime = DateTime.Now.AddHours(4), FinishDateTime = DateTime.Now.AddHours(8) });
+            defaultShifts.Add(new Shift() { BranchId = 1, StartDateTime = DateTime.Now.AddHours(3), FinishDateTime = DateTime.Now.AddHours(7) });
 
             foreach (Shift shift in defaultShifts)
             {
@@ -37,7 +37,7 @@ namespace TimeSheets.Infrastructure.Data
             Device defaultDevice = new Device() { BranchId = 1, LastClearedTime = DateTime.Now };
             context.Devices.Add(defaultDevice);
 
-            IList<Scan> defaultScans = new List<Scan>();
+            var defaultScans = new List<Scan>();
             defaultScans.Add(new Scan() { DeviceId = 1, StaffId = 1, ScanDateTime = DateTime.Now.AddMinutes(10) });
             defaultScans.Add(new Scan() { DeviceId = 1, StaffId = 1, ScanDateTime = DateTime.Now.AddMinutes(80) });
             defaultScans.Add(new Scan() { DeviceId = 1, StaffId = 1, ScanDateTime = DateTime.Now.AddMinutes(150) });
@@ -54,9 +54,34 @@ namespace TimeSheets.Infrastructure.Data
                 context.Scans.Add(scan);
             }
 
-            StaffShift defaultStaffShift = new StaffShift() { ShiftId = 1, StaffId = 1, PaidStartTime = DateTime.Now, PaidFinishTime = DateTime.Now, };
-            context.StaffShifts.Add(defaultStaffShift);
-            ExecuteSqlScriptsToCreateStoredProcsAndFunctions(context);
+
+
+
+            var defaultStaffShifts = new List<StaffShift>();
+            defaultStaffShifts.Add(new StaffShift()
+            {
+                ShiftId = 1,
+                StaffId = 1,
+                PaidStartTime = defaultShifts[0].StartDateTime.AddMinutes(10),
+                PaidFinishTime = defaultShifts[0].FinishDateTime.AddMinutes(-35)
+            });
+            defaultStaffShifts.Add(new StaffShift()
+            {
+                ShiftId = 1,
+                StaffId = 2,
+                PaidStartTime = defaultShifts[0].StartDateTime.AddMinutes(45),
+                PaidFinishTime = defaultShifts[0].FinishDateTime.AddMinutes(-25)
+            });
+            defaultStaffShifts.Add(new StaffShift()
+            {
+                ShiftId = 1,
+                StaffId = 3,
+                PaidStartTime = defaultShifts[0].StartDateTime.AddMinutes(15),
+                PaidFinishTime = defaultShifts[0].FinishDateTime.AddMinutes(-5)
+            });
+            context.StaffShifts.AddRange(defaultStaffShifts);
+            
+            //ExecuteSqlScriptsToCreateStoredProcsAndFunctions(context);
             base.Seed(context);
         }
 
@@ -67,6 +92,7 @@ namespace TimeSheets.Infrastructure.Data
             var projectDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)
                 .Parent.Parent.GetDirectories("TimeSheets.Infrastructure", SearchOption.AllDirectories)[0]
                 .FullName;
+
 
             var sqlFilesDirectory = Path.Combine(projectDirectory, "Data\\Sql");
 

@@ -10,6 +10,6 @@ namespace TimeSheets.Web.ViewModels.ShiftVM
     public class ShiftAddRemoveViewModel : SharedLayoutViewModel
     {
         public Shift Shift { get; set; }
-        public IEnumerable<Staff> AllStaff { get; set; } 
+        public IEnumerable<Staff> StaffAvailableForShift { get; set; } 
     }
 }

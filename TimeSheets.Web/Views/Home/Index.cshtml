@@ -4,7 +4,7 @@
     ViewBag.Title = "TimeSheets";
 }
 
-<h2>TimeSheets</h2>
- @Html.ActionLink("Goto Shifts","Index","Shift");
-
+<div class="container">
+    @Html.ActionLink("Shifts", "Index", "Shift", null, new { @class = "btn btn-info" })
+</div>
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using TimeSheets.Core.Interfaces;
@@ -34,6 +35,26 @@ namespace TimeSheets.Core.Services
             _unitOfWork.ShiftRepository.Create(shift);
             _unitOfWork.SaveChanges();
         }
+
+        public Shift GetShiftForAddRemoveStaff(int id)
+        {
+            return _unitOfWork.ShiftRepository.GetShiftByIdIncludeStaff(id);
+        }
+
+        public void AddStaffWithGivenIdsToShift(IEnumerable<int> staffIdList,int shiftId)
+        {
+            _unitOfWork.ShiftRepository.AddStaffToShift(staffIdList,shiftId);
+            _unitOfWork.SaveChanges();
+        }
+
+        public void RemoveStaffWithGivenIdsFromShift(IEnumerable<int> staffIdList, int shiftId)
+        {
+            _unitOfWork.ShiftRepository.RemoveStaffFromShift(staffIdList, shiftId);
+            _unitOfWork.SaveChanges();
+        }
+
+
+
 
     }
 }
