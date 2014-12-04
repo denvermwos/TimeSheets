@@ -14,37 +14,39 @@
         <h2>Add / Remove Staff - Shift @Model.Shift.StartDateTime.ToString("HH:mm") to @Model.Shift.FinishDateTime.ToString("HH:mm")</h2>
 
         <table class="table table-striped table-hover table-bordered">
-            <th class="tab">Name
-            </th>
-            <th>Working
-            </th>
-            @if (Model.StaffAvailableForShift != null && Model.StaffAvailableForShift.Count() !=0)
+            <tr>
+                <th class="tab">Name
+                </th>
+                <th>Working
+                </th>
+            </tr>
+            @if (Model.StaffAvailableForShift != null && Model.StaffAvailableForShift.Count() != 0)
             {
                 foreach (var staff in Model.StaffAvailableForShift)
-                 {
-                     <tr>
-                         <td>
-                             @staff.Name
-                         </td>
-                         <td>
-                             @{
-                                 var IsInShift = Model.Shift.StaffShifts.Any(x => x.StaffId == staff.Id);
-                             }
-                             @if (IsInShift)
-                             {
-                                 <input name="staffInShift" type="checkbox" checked="true" value="@staff.Id.ToString()"/>
-                                 <input name="staffIdsToRemove"type="hidden" value="@staff.Id.ToString()"  disabled="true"/>
-                                 <input name="staffIdsToAdd"type="hidden" value="@staff.Id.ToString()"  disabled="true"/>
-                             }
-                             else
-                             {
-                                 <input name="staffNotInShift" type="checkbox" name="ints" value="@staff.Id.ToString()"/>
-                                 <input name="staffIdsToRemove"type="hidden" value="@staff.Id.ToString()" disabled="true"/>
-                                 <input name="staffIdsToAdd"type="hidden" value="@staff.Id.ToString()"  disabled="true"/>
-                             }
-                         </td>
-                     </tr>
-                 }
+                {
+                <tr>
+                    <td>
+                        @staff.Name
+                    </td>
+                    <td>
+                        @{
+                    var IsInShift = Model.Shift.StaffShifts.Any(x => x.StaffId == staff.Id);
+                        }
+                        @if (IsInShift)
+                        {
+                            <input name="staffInShift" type="checkbox" checked="true" value="@staff.Id.ToString()"/>
+                            <input name="staffIdsToRemove"type="hidden" value="@staff.Id.ToString()"  disabled="true"/>
+                            <input name="staffIdsToAdd"type="hidden" value="@staff.Id.ToString()"  disabled="true"/>
+                        }
+                        else
+                        {
+                            <input name="staffNotInShift" type="checkbox" value="@staff.Id.ToString()"/>
+                            <input name="staffIdsToRemove"type="hidden" value="@staff.Id.ToString()" disabled="true"/>
+                            <input name="staffIdsToAdd"type="hidden" value="@staff.Id.ToString()"  disabled="true"/>
+                        }
+                    </td>
+                </tr>
+                }
             }
             else
             {

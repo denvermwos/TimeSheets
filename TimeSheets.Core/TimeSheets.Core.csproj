@@ -61,6 +61,7 @@
     <Compile Include="Services\ScanToShiftTimeService.cs" />
     <Compile Include="Services\ShiftService.cs" />
     <Compile Include="Services\StaffService.cs" />
+    <Compile Include="Services\StaffShiftService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

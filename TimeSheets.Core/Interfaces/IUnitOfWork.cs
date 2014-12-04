@@ -14,6 +14,7 @@ namespace TimeSheets.Core.Interfaces
         IStaffRepository StaffRepository { get; }
         IUserRepository UserRepository { get; }
         IScanRepository ScanRepository { get; }
+        IStaffShiftRepository StaffShiftRepository { get; }
 
         void SaveChanges();
     }

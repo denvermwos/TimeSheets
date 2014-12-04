@@ -11,7 +11,7 @@
     {
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <div class="panel-title">
+                <div class="">
                     <h5 class="col-md-6 col-xs-6">@shift.StartDateTime.ToString("HH:mm") - @shift.FinishDateTime.ToString("HH:mm")</h5>
                     <a href="@Url.Action("AddRemoveStaff", "Shift", new { id = shift.Id })" class ="btn btn-info btn-sm"><span class="glyphicon glyphicon-plus-sign"></span>Add Staff</a>
                 </div>
@@ -30,52 +30,8 @@
                         {
                             foreach (var staffShift in shift.StaffShifts)
                             {
-                            <tr>
-                                <td class="col-md-4">@staffShift.Staff.Name</td>
-                                <td class="col-md-2">
-                                    @if (staffShift.PaidStartTime.HasValue)
-                                    {
-                                        if (staffShift.PaidStartTime.Value < shift.StartDateTime.AddMinutes(30) && staffShift.PaidStartTime.Value > shift.StartDateTime)
-                                        {
-                                        @staffShift.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span><span class="label label-warning">Late</span>
-                                        }
-                                        else if (staffShift.PaidStartTime.Value >= shift.StartDateTime.AddMinutes(30))
-                                        {
-                                        @staffShift.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span><span class="label label-danger">Late</span>
-                                        }
-                                        else
-                                        {
-                                        @staffShift.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>   
-                                        }
-                                    }
-                                    else
-                                    {
-                                        @*<span class="text-muted">@shift.StartDateTime.ToString("HH:mm")</span><span class="glyphicon glyphicon-remove-sign text-danger"></span>*@
-                                    }
-                                </td>
-                                <td class="col-md-2">
-                                    @if (staffShift.PaidFinishTime.HasValue)
-                                    {
-                                        if (staffShift.PaidFinishTime.Value < shift.FinishDateTime.AddMinutes(-30))
-                                        {
-                                        @staffShift.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span><span class="label label-danger">Early</span>
-                                        }
-                                        else if (shift.FinishDateTime >= staffShift.PaidFinishTime.Value.AddMinutes(-30) && staffShift.PaidFinishTime.Value < shift.FinishDateTime.AddMinutes(-10))
-                                        {
-                                        @staffShift.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span><span class="label label-warning">Early</span>
-                                        }
-                                        else
-                                        {
-                                        @staffShift.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        @*<span class="text-muted">@shift.FinishDateTime.ToString("HH:mm")</span><span class="glyphicon glyphicon-remove-sign text-danger"></span>*@
-                                    }
-                                </td>
-                                <td class="col-md-3"></td>
-                                <td class="col-md-1"><a href="@Url.Action("Edit","StaffShift",new {Id = staffShift.StaffId})" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            <tr id="@("staffShift" + staffShift.Id)">
+                                @{Html.RenderPartial("_StaffShiftRow",staffShift);}
                             </tr>
                             }
                         }
@@ -86,7 +42,7 @@
                                 <td class="col-md-2"></td>
                                 <td class="col-md-2"></td>
                                 <td class="col-md-3"></td>
-                                <td class="col-md-1"><span class="glyphicon glypicon"></span></td>
+                                <td class="col-md-1"></td>
                             </tr>
                         }
                     </table>

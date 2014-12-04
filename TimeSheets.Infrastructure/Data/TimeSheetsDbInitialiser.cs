@@ -81,7 +81,7 @@ namespace TimeSheets.Infrastructure.Data
             });
             context.StaffShifts.AddRange(defaultStaffShifts);
             
-            //ExecuteSqlScriptsToCreateStoredProcsAndFunctions(context);
+            ExecuteSqlScriptsToCreateStoredProcsAndFunctions(context);
             base.Seed(context);
         }
 

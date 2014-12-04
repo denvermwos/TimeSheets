@@ -1,0 +1,91 @@
+﻿@model TimeSheets.Core.Model.StaffShift
+
+
+<td class="col-md-4">@Model.Staff.Name</td>
+<td class="col-md-2">
+    @if (Model.StaffSick)
+    {
+        <text>Sick</text>
+    }
+    else if (Model.StaffOnleave)
+    {
+        <text>Leave</text>
+    }
+    else
+    {
+        if (Model.PaidStartTime.HasValue)
+        {
+            if (Model.PaidStartTime.Value < Model.Shift.StartDateTime.AddMinutes(30) && Model.PaidStartTime.Value > Model.Shift.StartDateTime)
+            {
+        @Model.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span><span class="label label-warning">Late</span>
+            }
+            else if (Model.PaidStartTime.Value >= Model.Shift.StartDateTime.AddMinutes(30))
+            {
+        @Model.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span><span class="label label-danger">Late</span>
+            }
+            else
+            {
+        @Model.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>   
+            }
+        }
+        else
+        {
+
+        }
+    }
+</td>
+<td class="col-md-2">
+    @if (Model.StaffSick)
+    {
+        <text>Sick</text>
+    }
+    else if (Model.StaffOnleave)
+    {
+        <text>Leave</text>
+    }
+    else
+    {
+        if (Model.PaidFinishTime.HasValue)
+        {
+            if (Model.PaidFinishTime.Value < Model.Shift.FinishDateTime.AddMinutes(-30))
+            {
+                @Model.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
+                <span class="label label-danger">Early</span>
+            }
+            else if (Model.Shift.FinishDateTime >= Model.PaidFinishTime.Value.AddMinutes(-30) && Model.PaidFinishTime.Value < Model.Shift.FinishDateTime.AddMinutes(-10))
+            {
+                @Model.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
+                <span class="label label-warning">Early</span>
+            }
+            else
+            {
+                @Model.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
+            }
+        }
+        else
+        {
+
+        }
+    }
+</td>
+<td class="col-md-3"></td>
+<td class="col-md-1">
+
+    @Ajax.ActionLink("S", "Sick", "StaffShift", new { id = Model.Id }, new AjaxOptions()
+                                                                            {
+                                                                                HttpMethod = "POST",
+                                                                                UpdateTargetId = "staffShift" + Model.Id,
+                                                                                InsertionMode = InsertionMode.Replace
+                                                                            }
+                                                                            , new { @class = "btn btn-danger btn-xs" })
+    @Ajax.ActionLink("L", "Leave", "StaffShift", new { id = Model.Id }, new AjaxOptions()
+                                                                                {
+                                                                                    HttpMethod = "POST",
+                                                                                    UpdateTargetId = "staffShift" + Model.Id,
+                                                                                    InsertionMode = InsertionMode.Replace
+                                                                                }
+                                                                                , new { @class = "btn btn-info btn-xs" })
+    <a href="." class="btn btn-success btn-xs"><span class="glyphicon glyphicon-time"></span></a>
+
+</td>
+

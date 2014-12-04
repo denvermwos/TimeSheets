@@ -24,10 +24,8 @@ namespace TimeSheets.Core.Model
         public int OverRiddenById { get; set; }
         public virtual Staff OverRiddenByStaff { get; set; }
 
-        public bool ForgotToSignIn { get; set; }
-        public bool ForgotToSignOut { get; set; }
         public bool TookLunchBreak { get; set; }
-        public bool Onleave { get; set; }
+        public bool StaffOnleave { get; set; }
         public bool StaffSick { get; set; }
 
         [NotMapped]
@@ -48,6 +46,7 @@ namespace TimeSheets.Core.Model
         public float NormalHours { get; set; }
         public float SundayHours { get; set; }
         public float PublicHolidayHours { get; set; }
+        public float AttendanceBonusHours { get; set; }
 
         
         

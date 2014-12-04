@@ -17,6 +17,7 @@ namespace TimeSheets.Infrastructure.Data
         private EFStaffRepository _staffRepository;
         private EFUserRepository _userRepository;
         private EFScanRepository _scanRepository;
+        private EFStaffShiftRepository _staffShiftRepository;
 
         public IBranchRepository BranchRepository
         {
@@ -90,10 +91,24 @@ namespace TimeSheets.Infrastructure.Data
             }
         }
 
+        public IStaffShiftRepository StaffShiftRepository
+        {
+            get
+            {
+                if (this._staffShiftRepository == null)
+                {
+                    this._staffShiftRepository = new EFStaffShiftRepository(_context);
+                }
+                return _staffShiftRepository;
+            }
+        }
 
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
+
+
+        
     }
 }

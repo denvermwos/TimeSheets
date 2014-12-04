@@ -63,14 +63,9 @@ namespace TimeSheets.Infrastructure.Data
         public void RemoveStaffFromShift(IEnumerable<int> staffIds, int shiftId)
         {
             //todo optimise the delete operation with sql
-            if (staffIds != null && shiftId != null)
+            if (staffIds != null)
             {
-                var staffShiftsToRemove = new List<StaffShift>();
-                foreach (var sId in staffIds)
-                {
-                    staffShiftsToRemove.Add(
-                        _timeSheetsContext.StaffShifts.FirstOrDefault(ss => ss.StaffId == sId && ss.ShiftId == shiftId));
-                }
+                var staffShiftsToRemove = staffIds.Select(sId => _timeSheetsContext.StaffShifts.FirstOrDefault(ss => ss.StaffId == sId && ss.ShiftId == shiftId)).ToList();
                 _timeSheetsContext.StaffShifts.RemoveRange(staffShiftsToRemove);
             }
         }

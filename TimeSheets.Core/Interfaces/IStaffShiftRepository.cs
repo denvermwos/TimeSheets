@@ -10,5 +10,7 @@ namespace TimeSheets.Core.Interfaces
     public interface IStaffShiftRepository
     {
         StaffShift GetStaffShiftInTimeRange(Scan scan);
+        StaffShift GetStaffShiftById(int id);
+        void UpdateStaffShift(StaffShift staffShift);
     }
 }
