@@ -24,6 +24,8 @@ namespace TimeSheets.Infrastructure.Data
 
 
             context.Branches.Add(new Branch() { Id = 1, Name = "Verulam" });
+            context.Branches.Add(new Branch() { Id = 2, Name = "Telebetting" });
+            context.Branches.Add(new Branch() { Id = 3, Name = "Umhlanga" });
 
             var defaultShifts = new List<Shift>();
             defaultShifts.Add(new Shift() { BranchId = 1, StartDateTime = DateTime.Now, FinishDateTime = DateTime.Now.AddHours(4) });
@@ -63,7 +65,13 @@ namespace TimeSheets.Infrastructure.Data
                 ShiftId = 1,
                 StaffId = 1,
                 PaidStartTime = defaultShifts[0].StartDateTime.AddMinutes(10),
-                PaidFinishTime = defaultShifts[0].FinishDateTime.AddMinutes(-35)
+                PaidFinishTime = defaultShifts[0].FinishDateTime.AddMinutes(-35),
+                //For Overridden time
+                UseOverrideTimes = true,
+                OPaidStartTime = defaultShifts[0].StartDateTime.AddMinutes(10),
+                OPaidFinishTime = defaultShifts[0].FinishDateTime.AddMinutes(-35)
+
+                
             });
             defaultStaffShifts.Add(new StaffShift()
             {
@@ -81,7 +89,7 @@ namespace TimeSheets.Infrastructure.Data
             });
             context.StaffShifts.AddRange(defaultStaffShifts);
             
-            ExecuteSqlScriptsToCreateStoredProcsAndFunctions(context);
+            //ExecuteSqlScriptsToCreateStoredProcsAndFunctions(context);
             base.Seed(context);
         }
 

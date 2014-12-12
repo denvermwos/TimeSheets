@@ -1,11 +1,40 @@
 ﻿@using TimeSheets.Core.Model
+@using TimeSheets.Web.CustomHtmlHelpers
 @model TimeSheets.Web.ViewModels.ShiftVM.ShiftIndexViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 <div class="container">
-    <h2>Shifts</h2>
+
+    <div class="col-md-1 col-sm-4">
+        <h2 id="shiftheader">Shifts</h2>
+    </div>
+    <div class="col-md-7 col-md-offset-1 col-sm-8">
+        @using (Html.BeginForm("Index", "Shift", FormMethod.Post, new { id = "shiftDateSelectorForm" }))
+        {
+            <div class="col-md-5 col-sm-5 col-xs-12">
+                @Html.DateFor(m => m.DateBeingViewed) 
+            </div>
+            <div class="col-md-5 col-sm-5 col-xs-12">
+                @Html.DropDownList("branchId",Model.BranchSelectList, new{@class="form-control"})
+                @*@Html.DropDownList("Branches",new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Verulam", Value = "1",Selected = true},
+                    new SelectListItem {Text = "Telebetting", Value = "2"}
+                }, new{@class="form-control"})*@
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                <input type="submit" value="Go" class="btn btn-success  col-md-10 col-md-offset-1 col-xs-12" />
+            </div>
+        }
+    </div>
+
+
+
+</div>
+<div class="container">
+
 
     @foreach (var shift in Model.ShiftList)
     {
@@ -13,7 +42,7 @@
             <div class="panel-heading">
                 <div class="">
                     <h5 class="col-md-6 col-xs-6">@shift.StartDateTime.ToString("HH:mm") - @shift.FinishDateTime.ToString("HH:mm")</h5>
-                    <a href="@Url.Action("AddRemoveStaff", "Shift", new { id = shift.Id })" class ="btn btn-info btn-sm"><span class="glyphicon glyphicon-plus-sign"></span>Add Staff</a>
+                    <a href="@Url.Action("AddRemoveStaff", "Shift", new { id = shift.Id })" class ="btn btn-info btn-sm">Staff</a>
                 </div>
             </div>
             <div class="panel-body">
@@ -31,7 +60,7 @@
                             foreach (var staffShift in shift.StaffShifts)
                             {
                             <tr id="@("staffShift" + staffShift.Id)">
-                                @{Html.RenderPartial("_StaffShiftRow",staffShift);}
+                                @{Html.RenderPartial("_StaffShiftRow", staffShift);}
                             </tr>
                             }
                         }

@@ -1,15 +1,25 @@
-﻿@model TimeSheets.Core.Model.StaffShift
+﻿@using System.Activities.Statements
+@using System.Web.Razor.Parser.SyntaxTree
+@model TimeSheets.Core.Model.StaffShift
 
 
 <td class="col-md-4">@Model.Staff.Name</td>
-<td class="col-md-2">
+<td id="@("s" + Model.Id)" class="col-md-2">
     @if (Model.StaffSick)
     {
-        <text>Sick</text>
+        <span class="label label-danger">Sick</span>
     }
     else if (Model.StaffOnleave)
     {
-        <text>Leave</text>
+        <span class="label label-info">Leave</span>
+    }
+    else if (Model.UseOverrideTimes)
+    {
+        if (Model.OPaidStartTime.HasValue)
+        {
+            @Model.OPaidStartTime.Value.ToString("HH:mm")
+            <span class="label label-info">Manual</span>
+        }
     }
     else
     {
@@ -17,15 +27,17 @@
         {
             if (Model.PaidStartTime.Value < Model.Shift.StartDateTime.AddMinutes(30) && Model.PaidStartTime.Value > Model.Shift.StartDateTime)
             {
-        @Model.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span><span class="label label-warning">Late</span>
+        @Model.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
+        <span class="label label-warning">Late</span>
             }
             else if (Model.PaidStartTime.Value >= Model.Shift.StartDateTime.AddMinutes(30))
             {
-        @Model.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span><span class="label label-danger">Late</span>
+        @Model.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
+        <span class="label label-danger">Late</span>
             }
             else
             {
-        @Model.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>   
+        @Model.PaidStartTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
             }
         }
         else
@@ -34,14 +46,22 @@
         }
     }
 </td>
-<td class="col-md-2">
+<td id="@("f" + Model.Id)" class="col-md-2">
     @if (Model.StaffSick)
     {
-        <text>Sick</text>
+        <span class="label label-danger">Sick</span>
     }
     else if (Model.StaffOnleave)
     {
-        <text>Leave</text>
+        <span class="label label-info">Leave</span>
+    }
+    else if (Model.UseOverrideTimes)
+    {
+        if (Model.OPaidFinishTime.HasValue)
+        {
+            @Model.OPaidFinishTime.Value.ToString("HH:mm")
+            <span class="label label-info">Manual</span>
+        }
     }
     else
     {
@@ -49,17 +69,17 @@
         {
             if (Model.PaidFinishTime.Value < Model.Shift.FinishDateTime.AddMinutes(-30))
             {
-                @Model.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
-                <span class="label label-danger">Early</span>
+        @Model.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
+        <span class="label label-danger">Early</span>
             }
             else if (Model.Shift.FinishDateTime >= Model.PaidFinishTime.Value.AddMinutes(-30) && Model.PaidFinishTime.Value < Model.Shift.FinishDateTime.AddMinutes(-10))
             {
-                @Model.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
-                <span class="label label-warning">Early</span>
+        @Model.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
+        <span class="label label-warning">Early</span>
             }
             else
             {
-                @Model.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
+        @Model.PaidFinishTime.Value.ToString("HH:mm")<span class="glyphicon glyphicon-ok-sign text-success"></span>
             }
         }
         else
@@ -68,24 +88,60 @@
         }
     }
 </td>
-<td class="col-md-3"></td>
-<td class="col-md-1">
-
-    @Ajax.ActionLink("S", "Sick", "StaffShift", new { id = Model.Id }, new AjaxOptions()
+<td @*class="col-md-3"*@></td>
+<td id="@("b" + Model.Id)" class="col-lg-1">
+    @if (Model.StaffSick)
+    {
+        @Ajax.ActionLink("S", "NotSick", "StaffShift", new { id = Model.Id }, new AjaxOptions()
                                                                             {
                                                                                 HttpMethod = "POST",
                                                                                 UpdateTargetId = "staffShift" + Model.Id,
-                                                                                InsertionMode = InsertionMode.Replace
+                                                                                InsertionMode = InsertionMode.Replace,
+                                                                                OnBegin = "ClearResults(s" + Model.Id + ",f" + Model.Id + ",b" + Model.Id + ")"
                                                                             }
                                                                             , new { @class = "btn btn-danger btn-xs" })
-    @Ajax.ActionLink("L", "Leave", "StaffShift", new { id = Model.Id }, new AjaxOptions()
+    }
+    else
+    {
+        @Ajax.ActionLink("S", "Sick", "StaffShift", new { id = Model.Id }, new AjaxOptions()
+                                                                            {
+                                                                                HttpMethod = "POST",
+                                                                                UpdateTargetId = "staffShift" + Model.Id,
+                                                                                InsertionMode = InsertionMode.Replace,
+                                                                                OnBegin = "ClearResults(s" + Model.Id + ",f" + Model.Id + ",b" + Model.Id + ")"
+
+                                                                            }
+                                                                            , new { @class = "btn btn-default btn-xs" })
+    }
+    @if (Model.StaffOnleave)
+    {
+        @Ajax.ActionLink("L", "NotOnLeave", "StaffShift", new { id = Model.Id }, new AjaxOptions()
                                                                                 {
                                                                                     HttpMethod = "POST",
                                                                                     UpdateTargetId = "staffShift" + Model.Id,
-                                                                                    InsertionMode = InsertionMode.Replace
+                                                                                    InsertionMode = InsertionMode.Replace,
+                                                                                    OnBegin = "ClearResults(s" + Model.Id + ",f" + Model.Id + ",b" + Model.Id + ")"
+
                                                                                 }
                                                                                 , new { @class = "btn btn-info btn-xs" })
-    <a href="." class="btn btn-success btn-xs"><span class="glyphicon glyphicon-time"></span></a>
+    }
+    else
+    {
+        @Ajax.ActionLink("L", "OnLeave", "StaffShift", new { id = Model.Id }, new AjaxOptions()
+                                                                                {
+                                                                                    HttpMethod = "POST",
+                                                                                    UpdateTargetId = "staffShift" + Model.Id,
+                                                                                    InsertionMode = InsertionMode.Replace,
+                                                                                    OnBegin = "ClearResults(s" + Model.Id + ",f" + Model.Id + ",b" + Model.Id + ")"
+                                                                                }
+                                                                                , new { @class = "btn btn-default btn-xs" })
+    
+    }
+
+    <a href="@Url.Action("Edit", "StaffShift", new { id = Model.Id })" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-time"></span></a>
 
 </td>
+
+
+
 

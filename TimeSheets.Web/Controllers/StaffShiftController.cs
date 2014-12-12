@@ -19,22 +19,78 @@ namespace TimeSheets.Web.Controllers
             return View();
         }
 
-        public ActionResult Edit()
+
+
+        [HttpPost]
+        [ActionName("Edit")]
+        public ActionResult Edit_Post(TimesOverride timesOverride)
+        {
+            if (ModelState.IsValid)
+            {
+                _staffShiftService.ApplyOverrideTimes(timesOverride.StaffShiftId, timesOverride.OPaidStartTime, timesOverride.OPaidFinishTime);
+                return RedirectToAction("Index", "Shift");
+            }
+            else
+            {
+                return View();   
+            }
+            
+        }
+
+        [HttpGet]
+        [ActionName("Edit")]
+        public ActionResult Edit_Get(int id)
         {
             var viewModel = new StaffShiftEditViewModel();
-            var staffShift = new StaffShift();
+            var staffShift = _staffShiftService.GetStaffShiftById(id);
+            var timesOverride = new TimesOverride();
+            timesOverride.SetTimesToStaffShiftForDisplay(staffShift);
+            viewModel.StaffShift = staffShift;
+            viewModel.TimesOverride = timesOverride;
+            
             return View(viewModel);
         }
 
         public PartialViewResult Sick(int id)
         {
+            Latency();
             StaffShift staffShift = _staffShiftService.MarkShiftWithIdSick(id);
             return PartialView("_StaffShiftRow", staffShift);
         }
 
-        public ActionResult Leave(int id)
+        public ActionResult OnLeave(int id)
         {
-            throw new System.NotImplementedException();
+            Latency();
+            StaffShift staffShift = _staffShiftService.MarkShiftWithIdOnLeave(id);
+            return PartialView("_StaffShiftRow", staffShift);
+        }
+
+        
+
+        public ActionResult NotSick(int id)
+        {
+            Latency();
+            StaffShift staffShift = _staffShiftService.MarkShiftWithIdNotSick(id);
+            return PartialView("_StaffShiftRow", staffShift);
+        }
+
+        public ActionResult NotOnLeave(int id)
+        {
+            Latency();
+            StaffShift staffShift = _staffShiftService.MarkShiftWithIdNotOnLeave(id);
+            return PartialView("_StaffShiftRow", staffShift);
+        }
+
+        private void Latency()
+        {
+            //todo fake latency remove this before going to production
+            //System.Threading.Thread.Sleep(1000);
+        }
+
+        public ActionResult RemOTimes(TimesOverride timesOverride)
+        {
+            _staffShiftService.RemoveOverridingTimes(timesOverride.StaffShiftId);
+            return RedirectToAction("Index", "Shift");
         }
     }
 }

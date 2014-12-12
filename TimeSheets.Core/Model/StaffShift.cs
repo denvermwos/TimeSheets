@@ -19,11 +19,6 @@ namespace TimeSheets.Core.Model
         [DisplayName("Finish Time")]
         public DateTime? PaidFinishTime { get; set; }
 
-        public bool PaidTimesOveridden { get; set; }
-
-        public int OverRiddenById { get; set; }
-        public virtual Staff OverRiddenByStaff { get; set; }
-
         public bool TookLunchBreak { get; set; }
         public bool StaffOnleave { get; set; }
         public bool StaffSick { get; set; }
@@ -43,10 +38,25 @@ namespace TimeSheets.Core.Model
 
         public bool DoNotDelete { get; set; }
 
+        public Boolean UseOverrideTimes { get; set; }
+
+        [DisplayName("Start Time")]
+        public DateTime? OPaidStartTime { get; set; }
+
+        [DisplayName("Finish Time")]
+        public DateTime? OPaidFinishTime { get; set; }
+
         public float NormalHours { get; set; }
         public float SundayHours { get; set; }
         public float PublicHolidayHours { get; set; }
         public float AttendanceBonusHours { get; set; }
+
+        public void ResetToNormal()
+        {
+            StaffOnleave = false;
+            StaffSick = false;
+            UseOverrideTimes = false;
+        }
 
         
         

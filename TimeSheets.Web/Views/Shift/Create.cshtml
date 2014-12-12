@@ -1,6 +1,5 @@
-﻿
-<div class="container">
-    @model TimeSheets.Web.ViewModels.ShiftVM.ShiftCreateViewModel
+﻿<div class="container">
+    @using TimeSheets.Web.CustomHtmlHelpers    @model TimeSheets.Web.ViewModels.ShiftVM.ShiftCreateViewModel
 
     @{
         ViewBag.Title = "Create";
@@ -12,31 +11,30 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
 
+        
+        
+        
+        
+        
+        
+        
         <fieldset>
             <legend>Shift</legend>
 
             <div class="editor-label">
                 @Html.LabelFor(model => model.Shift.StartDateTime)
+
             </div>
             <div class="editor-field">
                 <div class="row">
                     <div class='col-sm-6'>
+
                         <div class="form-group">
-                            @* todo make bootstrap datetimepicker a html helper *@
                             @* todo why does jquery expect one format, and mvc server expect another for dates? *@
-                            <div class='input-group date' id='datetimepicker1'>
-                                <input type='text' class="form-control"   id="StartDateTime" name ="StartDateTime" data-val="true" data-val-date="The field Shift Start Time must be a date." data-val-required="The Shift Start Time field is required." type="datetime"
-                                       data-date-format="DD/MM/YYYY HH:mm:ss"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
+                            @Html.DateTimeFor(model => model.Shift.StartDateTime)
                         </div>
                     </div>
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#datetimepicker1').datetimepicker();
-                        });
-                    </script>
+
                 </div>
                 @Html.ValidationMessageFor(model => model.Shift.StartDateTime)
             </div>
@@ -49,31 +47,31 @@
                 <div class="row">
                     <div class='col-sm-6'>
                         <div class="form-group">
-                            <div class='input-group date' id='datetimepicker2'>
-                                <input type='text' class="form-control"  id="FinishDateTime" name ="FinishDateTime" data-val="true" data-val-date="The field Shift Finish Time must be a date." data-val-required="The Shift Finish Time field is required." type="datetime"
-                                    data-date-format="DD/MM/YYYY HH:mm:ss"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
+                            @Html.DateTimeFor(model => model.Shift.FinishDateTime)
                         </div>
                     </div>
                     <script type="text/javascript">
-                        $(function () {
-                            $('#datetimepicker2').datetimepicker();
-                        });
+                        
                     </script>
                 </div>
                 @Html.ValidationMessageFor(model => model.Shift.FinishDateTime)
+
+
+
+
+
+
+
             </div>
-            
-            
+
+
             <div>
-                <input type="submit" value="Create" class="btn btn-success"/>
-                @Html.ActionLink("Cancel", "Index","Shift",null, new{@class="btn btn-danger"})
+                <input type="submit" value="Create" class="btn btn-success" />
+                @Html.ActionLink("Cancel", "Index", "Shift", null, new { @class = "btn btn-danger" })
             </div>
         </fieldset>
     }
-   
+
 
 </div>
 

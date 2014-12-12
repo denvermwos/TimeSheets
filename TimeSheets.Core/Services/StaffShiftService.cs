@@ -17,15 +17,64 @@ namespace TimeSheets.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public StaffShift MarkShiftWithIdSick(int Id)
+        public StaffShift MarkShiftWithIdSick(int id)
         {
-            StaffShift staffShift = _unitOfWork.StaffShiftRepository.GetStaffShiftById(Id);
+            StaffShift staffShift = _unitOfWork.StaffShiftRepository.GetStaffShiftById(id);
+            staffShift.ResetToNormal();
             staffShift.StaffSick = true;
-            staffShift.StaffOnleave = false;
+            _unitOfWork.StaffShiftRepository.UpdateStaffShift(staffShift);
+            _unitOfWork.SaveChanges();
+            return staffShift;
+        }
+        public StaffShift MarkShiftWithIdNotSick(int id)
+        {
+            StaffShift staffShift = _unitOfWork.StaffShiftRepository.GetStaffShiftById(id);
+            staffShift.ResetToNormal();
+            _unitOfWork.StaffShiftRepository.UpdateStaffShift(staffShift);
+            _unitOfWork.SaveChanges();
+            return staffShift;
+        }
+        public StaffShift MarkShiftWithIdOnLeave(int id)
+        {
+            StaffShift staffShift = _unitOfWork.StaffShiftRepository.GetStaffShiftById(id);
+            staffShift.ResetToNormal();
+            staffShift.StaffOnleave = true;
+            _unitOfWork.StaffShiftRepository.UpdateStaffShift(staffShift);
+            _unitOfWork.SaveChanges();
+            return staffShift;
+        }
+        public StaffShift MarkShiftWithIdNotOnLeave(int id)
+        {
+            StaffShift staffShift = _unitOfWork.StaffShiftRepository.GetStaffShiftById(id);
+            staffShift.ResetToNormal();
             _unitOfWork.StaffShiftRepository.UpdateStaffShift(staffShift);
             _unitOfWork.SaveChanges();
             return staffShift;
         }
 
+        public void ApplyOverrideTimes(int staffShiftId, DateTime? oPaidStartTime, DateTime? oPaidFinishTime)
+        {
+            StaffShift staffShiftFromDb =_unitOfWork.StaffShiftRepository.GetStaffShiftById(staffShiftId);
+            staffShiftFromDb.ResetToNormal();
+            staffShiftFromDb.UseOverrideTimes = true;
+            staffShiftFromDb.OPaidStartTime = oPaidStartTime;
+            staffShiftFromDb.OPaidFinishTime = oPaidFinishTime;
+            _unitOfWork.StaffShiftRepository.UpdateStaffShift(staffShiftFromDb);
+            _unitOfWork.SaveChanges();
+        }
+
+        public void RemoveOverridingTimes(int staffShiftId)
+        {
+            StaffShift staffShiftFromDb = _unitOfWork.StaffShiftRepository.GetStaffShiftById(staffShiftId);
+
+            staffShiftFromDb.ResetToNormal();
+            _unitOfWork.StaffShiftRepository.UpdateStaffShift(staffShiftFromDb);
+            _unitOfWork.SaveChanges();
+        }
+
+        public StaffShift GetStaffShiftById(int id)
+        {
+            return _unitOfWork.StaffShiftRepository.GetStaffShiftById(id);
+        }
     }
 }

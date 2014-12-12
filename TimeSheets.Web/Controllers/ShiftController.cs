@@ -12,23 +12,50 @@ namespace TimeSheets.Web.Controllers
     public class ShiftController : BaseController
     {
         private ShiftService _shiftService;
-        private readonly StaffService _staffService;
+        private StaffService _staffService;
+        private BranchService _branchService;
 
-        public ShiftController(ShiftService shiftService, StaffService staffService)
+        public ShiftController(ShiftService shiftService, StaffService staffService, BranchService branchService)
         {
+            _branchService = branchService;
             _shiftService = shiftService;
             _staffService = staffService;
         }
 
         //
         // GET: /Shift/
-
-        public ActionResult Index()
+        [HttpGet]
+        [ActionName("Index")]
+        public ActionResult Index_Get(DateTime? id)
         {
             //todo list of shift for today
-            IEnumerable<Shift> todayShifts = _shiftService.GetShifts(new Branch() { Id = 1, Name = "Verulam" }, DateTime.Today);
-            ShiftIndexViewModel viewModel = new ShiftIndexViewModel();
+            var dateToGetShiftsFor = new DateTime();
+            if (id == null)
+            {
+                dateToGetShiftsFor = DateTime.Today;
+            }
+            else
+            {
+                dateToGetShiftsFor = (DateTime) id;
+            }
+            IEnumerable<Shift> todayShifts = _shiftService.GetShifts(1, dateToGetShiftsFor);
+            var viewModel = new ShiftIndexViewModel();
             viewModel.ShiftList = todayShifts;
+            viewModel.DateBeingViewed = dateToGetShiftsFor;
+            viewModel.BranchSelectList = new SelectList(_branchService.GetAllBranches(),"Id","Name");
+            return View(viewModel);
+        }
+        
+        [HttpPost]
+        [ActionName("Index")]
+        public ActionResult Index_Post(DateTime dateBeingViewed, int branchId)
+        {
+            //todo list of shift for today
+            IEnumerable<Shift> todayShifts = _shiftService.GetShifts(branchId, dateBeingViewed);
+            var viewModel = new ShiftIndexViewModel();
+            viewModel.ShiftList = todayShifts;
+            viewModel.DateBeingViewed = dateBeingViewed;
+            viewModel.BranchSelectList = new SelectList(_branchService.GetAllBranches(),"Id","Name");
             return View(viewModel);
         }
         public ActionResult Date(DateTime dateTime)
@@ -48,20 +75,18 @@ namespace TimeSheets.Web.Controllers
 
         [HttpPost]
         [ActionName("Create")]
-        public ActionResult Create_Post()
+        public ActionResult Create_Post(Shift shift)
         {
-            Shift shift = new Shift() { BranchId = 1 };//todo get BranchId from logged in user after setting membership provider
-            UpdateModel(shift);
+            shift.BranchId = 1;
             if (ModelState.IsValid)
             {
                 _shiftService.CreateShift(shift);
                 return RedirectToAction("Index");
-
+                
             }
             else
             {
-                var viewModel = new ShiftCreateViewModel();
-                viewModel.Shift = shift;
+                var viewModel = new ShiftCreateViewModel {Shift = shift};
                 return View(viewModel);
             }
         }

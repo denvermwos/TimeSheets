@@ -10,5 +10,6 @@ namespace TimeSheets.Web.ViewModels.StaffShiftVM
     public class StaffShiftEditViewModel : SharedLayoutViewModel
     {
         public StaffShift StaffShift { get; set; }
+        public TimesOverride TimesOverride { get; set; }
     }
 }

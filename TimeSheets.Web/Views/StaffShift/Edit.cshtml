@@ -1,110 +1,59 @@
 ﻿@using TimeSheets.Core.Model
+@using TimeSheets.Web.CustomHtmlHelpers
 @model TimeSheets.Web.ViewModels.StaffShiftVM.StaffShiftEditViewModel
 
 @{
     ViewBag.Title = "Edit";
-    }
+}
+
 <div class="container">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+    <div class="col-md-6">
+        @using (Html.BeginForm("Edit", "StaffShift", new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
     
-        <fieldset>
-            <legend>StaffShift</legend>
-            @Html.HiddenFor(model => model.StaffShift.Id)
+            <fieldset>
+                <legend>StaffShift</legend>
+                @Html.HiddenFor(m => m.TimesOverride.StaffShiftId)
+                @Html.ValidationMessageFor(m => m.TimesOverride.StaffShiftId)
 
-            
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TimesOverride.OPaidStartTime)
+                    @Html.DateTimeFor(m => m.TimesOverride.OPaidStartTime)
+                    @Html.ValidationMessageFor(m => m.TimesOverride.OPaidStartTime)
+                </div>
 
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.PaidStartTime)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.PaidStartTime)
-                @Html.ValidationMessageFor(model => model.StaffShift.PaidStartTime)
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TimesOverride.OPaidFinishTime)
+                    @Html.DateTimeFor(m => m.TimesOverride.OPaidFinishTime)
+                    @Html.ValidationMessageFor(m => m.TimesOverride.OPaidFinishTime)
+                </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.PaidFinishTime)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.PaidFinishTime)
-                @Html.ValidationMessageFor(model => model.StaffShift.PaidFinishTime)
-            </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.ForgotToSignIn)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.ForgotToSignIn)
-                @Html.ValidationMessageFor(model => model.StaffShift.ForgotToSignIn)
-            </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.ForgotToSignOut)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.ForgotToSignOut)
-                @Html.ValidationMessageFor(model => model.StaffShift.ForgotToSignOut)
-            </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.TookLunchBreak)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.TookLunchBreak)
-                @Html.ValidationMessageFor(model => model.StaffShift.TookLunchBreak)
-            </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.LunchBreakDuration)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.LunchBreakDuration)
-                @Html.ValidationMessageFor(model => model.StaffShift.LunchBreakDuration)
-            </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.LunchBreakDurationTicks)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.LunchBreakDurationTicks)
-                @Html.ValidationMessageFor(model => model.StaffShift.LunchBreakDurationTicks)
-            </div>
+                <p>
+                    <input type="submit" value="Save" class="btn btn-success btn-sm" />
+                    @Html.ActionLink("Back to List", "Index", "Shift", null, new { @class = "btn btn-info btn-sm" })
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.StartTimeVerifiedWithScan)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.StartTimeVerifiedWithScan)
-                @Html.ValidationMessageFor(model => model.StaffShift.StartTimeVerifiedWithScan)
-            </div>
+                </p>
+            </fieldset>
+        }
+        @if (Model.StaffShift.UseOverrideTimes)
+        {
+            using (Html.BeginForm("RemOTimes", "StaffShift", new { @class = "form-horizontal" }))
+            {
+                @Html.HiddenFor(m => m.TimesOverride.StaffShiftId)
+                @Html.HiddenFor(m => m.TimesOverride.OPaidFinishTime)
+                @Html.HiddenFor(m => m.TimesOverride.OPaidFinishTime)
+                
+                <input type="submit" value="Clear and Use Scans" class="btn btn-danger btn-sm" />
+            }
+        }
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.FinishTimeVerifiedWithScan)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.FinishTimeVerifiedWithScan)
-                @Html.ValidationMessageFor(model => model.StaffShift.FinishTimeVerifiedWithScan)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StaffShift.DoNotDelete)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StaffShift.DoNotDelete)
-                @Html.ValidationMessageFor(model => model.StaffShift.DoNotDelete)
-            </div>
-
-            <p>
-                <input type="submit" value="Save" />
-            </p>
-        </fieldset>
-    }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index","Shift")
     </div>
 </div>
 @section Scripts {

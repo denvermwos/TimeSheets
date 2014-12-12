@@ -26,6 +26,7 @@ namespace TimeSheets.Core.Model
         
         [Required]
         [DataType(DataType.DateTime)]
+
         [DisplayName("Shift Finish Time")]
         public DateTime FinishDateTime { get; set; }
         
