@@ -43,6 +43,7 @@
     <Compile Include="Interfaces\IBranchRepository.cs" />
     <Compile Include="Interfaces\IDeviceService.cs" />
     <Compile Include="Interfaces\IDeviceRepository.cs" />
+    <Compile Include="Interfaces\IHolidayRepository.cs" />
     <Compile Include="Interfaces\IScanRepository.cs" />
     <Compile Include="Interfaces\IShiftRepository.cs" />
     <Compile Include="Interfaces\IStaffRepository.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Model\Branch.cs" />
     <Compile Include="Model\Device.cs" />
+    <Compile Include="Model\Holiday.cs" />
     <Compile Include="Model\Scan.cs" />
     <Compile Include="Model\Shift.cs" />
     <Compile Include="Model\Staff.cs" />

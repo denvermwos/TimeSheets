@@ -22,5 +22,6 @@ namespace TimeSheets.Infrastructure.Data
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<Staff> Staff { get; set; }
         public DbSet<StaffShift> StaffShifts { get; set; }
+        public DbSet<Holiday> Holidays { get; set; }
     }
 }

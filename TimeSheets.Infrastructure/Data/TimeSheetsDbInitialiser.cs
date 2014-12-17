@@ -88,9 +88,81 @@ namespace TimeSheets.Infrastructure.Data
                 PaidFinishTime = defaultShifts[0].FinishDateTime.AddMinutes(-5)
             });
             context.StaffShifts.AddRange(defaultStaffShifts);
+
+            var defaultHolidays = getHolidayList();
+            context.Holidays.AddRange(defaultHolidays);
             
-            //ExecuteSqlScriptsToCreateStoredProcsAndFunctions(context);
+
+
+
+            ExecuteSqlScriptsToCreateStoredProcsAndFunctions(context);
             base.Seed(context);
+        }
+
+        private List<Holiday> getHolidayList()
+        {
+            var defaultHolidays = new List<Holiday>();
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "New Years Day"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 3, 21),
+                Name = "Human Rights Day"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "Good Friday"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "Family Day"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "Freedom Day"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "Workers Day"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "Youth Day"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "National Womens Day"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "Heritage Day"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "Day of Reconciliation"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "Christmas Day"
+            });
+            defaultHolidays.Add(new Holiday()
+            {
+                Date = new DateTime(2014, 1, 1),
+                Name = "Day of Goodwill"
+            });
+
         }
 
         private void ExecuteSqlScriptsToCreateStoredProcsAndFunctions(TimeSheetsContext context)

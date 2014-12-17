@@ -18,6 +18,7 @@ namespace TimeSheets.Infrastructure.Data
         private EFUserRepository _userRepository;
         private EFScanRepository _scanRepository;
         private EFStaffShiftRepository _staffShiftRepository;
+        private EFHolidayRepository _holidayRepository;
 
         public IBranchRepository BranchRepository
         {
@@ -109,6 +110,19 @@ namespace TimeSheets.Infrastructure.Data
         }
 
 
-        
+
+
+
+        public IHolidayRepository HolidayRepository
+        {
+            get
+            {
+                if (this._holidayRepository == null)
+                {
+                    this._holidayRepository = new EFHolidayRepository(_context);
+                }
+                return _holidayRepository;
+            }
+        }
     }
 }

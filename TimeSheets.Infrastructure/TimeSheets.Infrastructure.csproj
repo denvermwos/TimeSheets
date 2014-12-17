@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Data\EFBranchRepository.cs" />
     <Compile Include="Data\EFDeviceRepository.cs" />
+    <Compile Include="Data\EFHolidayRepository.cs" />
     <Compile Include="Data\EFStaffShiftRepository.cs" />
     <Compile Include="Data\EFUnitOfWork.cs" />
     <Compile Include="Data\TimeSheetsContext.cs" />
