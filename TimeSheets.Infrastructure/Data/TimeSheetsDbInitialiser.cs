@@ -99,70 +99,84 @@ namespace TimeSheets.Infrastructure.Data
             base.Seed(context);
         }
 
-        private List<Holiday> getHolidayList()
+        private IEnumerable<Holiday> getHolidayList()
         {
-            var defaultHolidays = new List<Holiday>();
-            defaultHolidays.Add(new Holiday()
+            var defaultHolidays = new List<Holiday>
             {
-                Date = new DateTime(2014, 1, 1),
-                Name = "New Years Day"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 3, 21),
-                Name = "Human Rights Day"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "Good Friday"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "Family Day"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "Freedom Day"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "Workers Day"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "Youth Day"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "National Womens Day"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "Heritage Day"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "Day of Reconciliation"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "Christmas Day"
-            });
-            defaultHolidays.Add(new Holiday()
-            {
-                Date = new DateTime(2014, 1, 1),
-                Name = "Day of Goodwill"
-            });
-
+                new Holiday()
+                {
+                    Day = 1,
+                    Month = 1,
+                    Name = "New Years Day"
+                },
+                new Holiday()
+                {
+                    Day = 21,
+                    Month = 3,
+                    Name = "Human Rights Day"
+                },
+                new Holiday()
+                {
+                    Day = 18,
+                    Month = 4,
+                    Name = "Good Friday"
+                },
+                new Holiday()
+                {
+                    Day = 21,
+                    Month = 4,
+                    Name = "Family Day"
+                },
+                new Holiday()
+                {
+                    Day = 27,
+                    Month = 4,
+                    Name = "Freedom Day"
+                },
+                new Holiday()
+                {
+                    Day = 1,
+                    Month = 5,
+                    Name = "Workers Day"
+                },
+                new Holiday()
+                {
+                    Day = 1,
+                    Month = 6,
+                    Name = "Youth Day"
+                },
+                new Holiday()
+                {
+                    Day = 9,
+                    Month = 8,
+                    Name = "National Womens Day"
+                },
+                new Holiday()
+                {
+                    Day = 24,
+                    Month = 9,
+                    Name = "Heritage Day"
+                },
+                new Holiday()
+                {
+                    Day = 16,
+                    Month = 12,
+                    Name = "Day of Reconciliation"
+                },
+                new Holiday()
+                {
+                    Day = 25,
+                    Month = 12,
+                    Name = "Christmas Day"
+                },
+                new Holiday()
+                {
+                    Day = 26,
+                    Month = 12,
+                    Name = "Day of Goodwill"
+                }
+            };
+            return defaultHolidays;
         }
 
         private void ExecuteSqlScriptsToCreateStoredProcsAndFunctions(TimeSheetsContext context)
