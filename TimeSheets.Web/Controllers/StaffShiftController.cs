@@ -25,11 +25,14 @@ namespace TimeSheets.Web.Controllers
         [ActionName("Edit")]
         public ActionResult Edit_Post(TimesOverride timesOverride)
         {
-            //if (timesOverride.OPaidStartTime.Value.AddHours(1) >= timesOverride.OPaidFinishTime.Value)
-            //{
-            //    ModelState.AddModelError(string.Empty,"start and finish times dont make sense");
-            //    return View(); 
-            //}
+            if (timesOverride.OPaidStartTime.Value.AddHours(1) >= timesOverride.OPaidFinishTime.Value)
+            {
+                ModelState.AddModelError(string.Empty, "Shift has to be longer than an hour");
+                var viewModel = new StaffShiftEditViewModel();
+                StaffShift staffShift = _staffShiftService.GetStaffShiftById(timesOverride.StaffShiftId);
+                viewModel.StaffShift = staffShift;
+                return View(viewModel);
+            }
             if (ModelState.IsValid)
             {
                 _staffShiftService.ApplyOverrideTimes(timesOverride.StaffShiftId, timesOverride.OPaidStartTime, timesOverride.OPaidFinishTime);
@@ -37,7 +40,10 @@ namespace TimeSheets.Web.Controllers
             }
             else
             {
-                return View();   
+                var viewModel = new StaffShiftEditViewModel();
+                StaffShift staffShift = _staffShiftService.GetStaffShiftById(timesOverride.StaffShiftId);
+                viewModel.StaffShift = staffShift;
+                return View(viewModel);  
             }
             
         }

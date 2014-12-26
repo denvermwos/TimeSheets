@@ -80,6 +80,7 @@
     <Content Include="Data\SQL\CreateFunctionReturnEarlierDate.sql" />
     <Content Include="Data\SQL\CreateFunctionReturnLaterDate.sql" />
     <Content Include="Data\SQL\CreateProcedureAssignTimeToStaffShift.sql" />
+    <Content Include="Data\SQL\CreateProcedureGetNextSegment.sql" />
     <Content Include="Data\SQL\CreateProcedureSetActualStartAndFinishDateTimes.sql" />
     <Content Include="Data\SQL\CreateProcedureSetHoursInStaffShift.sql" />
   </ItemGroup>
