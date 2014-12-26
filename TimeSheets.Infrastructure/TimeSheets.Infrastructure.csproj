@@ -74,10 +74,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\SQL\CreateFunctionDatesInSameDay.sql" />
+    <Content Include="Data\SQL\CreateFunctionEndOfDay.sql" />
     <Content Include="Data\SQL\CreateFunctionIsDatePublicHoliday.sql" />
     <Content Include="Data\SQL\CreateFunctionReturnEarlierDate.sql" />
     <Content Include="Data\SQL\CreateFunctionReturnLaterDate.sql" />
+    <Content Include="Data\SQL\CreateProcedureAssignTimeToStaffShift.sql" />
     <Content Include="Data\SQL\CreateProcedureSetActualStartAndFinishDateTimes.sql" />
+    <Content Include="Data\SQL\CreateProcedureSetHoursInStaffShift.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

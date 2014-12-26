@@ -25,6 +25,11 @@ namespace TimeSheets.Web.Controllers
         [ActionName("Edit")]
         public ActionResult Edit_Post(TimesOverride timesOverride)
         {
+            //if (timesOverride.OPaidStartTime.Value.AddHours(1) >= timesOverride.OPaidFinishTime.Value)
+            //{
+            //    ModelState.AddModelError(string.Empty,"start and finish times dont make sense");
+            //    return View(); 
+            //}
             if (ModelState.IsValid)
             {
                 _staffShiftService.ApplyOverrideTimes(timesOverride.StaffShiftId, timesOverride.OPaidStartTime, timesOverride.OPaidFinishTime);
@@ -51,6 +56,7 @@ namespace TimeSheets.Web.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
         public PartialViewResult Sick(int id)
         {
             Latency();
@@ -58,15 +64,7 @@ namespace TimeSheets.Web.Controllers
             return PartialView("_StaffShiftRow", staffShift);
         }
 
-        public ActionResult OnLeave(int id)
-        {
-            Latency();
-            StaffShift staffShift = _staffShiftService.MarkShiftWithIdOnLeave(id);
-            return PartialView("_StaffShiftRow", staffShift);
-        }
-
-        
-
+        [HttpPost]
         public ActionResult NotSick(int id)
         {
             Latency();
@@ -74,12 +72,24 @@ namespace TimeSheets.Web.Controllers
             return PartialView("_StaffShiftRow", staffShift);
         }
 
+        [HttpPost]
+        public ActionResult OnLeave(int id)
+        {
+            Latency();
+            StaffShift staffShift = _staffShiftService.MarkShiftWithIdOnLeave(id);
+            return PartialView("_StaffShiftRow", staffShift);
+        }
+
+        [HttpPost]
         public ActionResult NotOnLeave(int id)
         {
             Latency();
             StaffShift staffShift = _staffShiftService.MarkShiftWithIdNotOnLeave(id);
             return PartialView("_StaffShiftRow", staffShift);
         }
+        
+
+        
 
         private void Latency()
         {

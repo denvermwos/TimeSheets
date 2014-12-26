@@ -16,7 +16,8 @@ namespace TimeSheets.Web.ViewModels.StaffShiftVM
         [Required]
         [DisplayName("Paid Start Time")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
-        public DateTime? OPaidStartTime { get; set; }
+
+        public DateTime? OPaidStartTime { get; set; }//made these nullable due to use of textboxfor to display date, if wasnt nullable then textboxfor would display a date for null values
 
         [Required]
         [DisplayName("Paid Finish Time")]

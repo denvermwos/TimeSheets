@@ -50,6 +50,8 @@ namespace TimeSheets.Core.Model
         public float SundayHours { get; set; }
         public float PublicHolidayHours { get; set; }
         public float AttendanceBonusHours { get; set; }
+        public float SickHours { get; set; }
+        public float LeaveHours { get; set; }
 
         public void ResetToNormal()
         {

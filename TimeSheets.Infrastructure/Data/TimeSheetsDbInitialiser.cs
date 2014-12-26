@@ -105,74 +105,74 @@ namespace TimeSheets.Infrastructure.Data
             {
                 new Holiday()
                 {
-                    Day = 1,
-                    Month = 1,
+                    DayNumber = 1,
+                    MonthNumber = 1,
                     Name = "New Years Day"
                 },
                 new Holiday()
                 {
-                    Day = 21,
-                    Month = 3,
+                    DayNumber = 21,
+                    MonthNumber = 3,
                     Name = "Human Rights Day"
                 },
                 new Holiday()
                 {
-                    Day = 18,
-                    Month = 4,
+                    DayNumber = 18,
+                    MonthNumber = 4,
                     Name = "Good Friday"
                 },
                 new Holiday()
                 {
-                    Day = 21,
-                    Month = 4,
+                    DayNumber = 21,
+                    MonthNumber = 4,
                     Name = "Family Day"
                 },
                 new Holiday()
                 {
-                    Day = 27,
-                    Month = 4,
+                    DayNumber = 27,
+                    MonthNumber = 4,
                     Name = "Freedom Day"
                 },
                 new Holiday()
                 {
-                    Day = 1,
-                    Month = 5,
+                    DayNumber = 1,
+                    MonthNumber = 5,
                     Name = "Workers Day"
                 },
                 new Holiday()
                 {
-                    Day = 1,
-                    Month = 6,
+                    DayNumber = 1,
+                    MonthNumber = 6,
                     Name = "Youth Day"
                 },
                 new Holiday()
                 {
-                    Day = 9,
-                    Month = 8,
+                    DayNumber = 9,
+                    MonthNumber = 8,
                     Name = "National Womens Day"
                 },
                 new Holiday()
                 {
-                    Day = 24,
-                    Month = 9,
+                    DayNumber = 24,
+                    MonthNumber = 9,
                     Name = "Heritage Day"
                 },
                 new Holiday()
                 {
-                    Day = 16,
-                    Month = 12,
+                    DayNumber = 16,
+                    MonthNumber = 12,
                     Name = "Day of Reconciliation"
                 },
                 new Holiday()
                 {
-                    Day = 25,
-                    Month = 12,
+                    DayNumber = 25,
+                    MonthNumber = 12,
                     Name = "Christmas Day"
                 },
                 new Holiday()
                 {
-                    Day = 26,
-                    Month = 12,
+                    DayNumber = 26,
+                    MonthNumber = 12,
                     Name = "Day of Goodwill"
                 }
             };
