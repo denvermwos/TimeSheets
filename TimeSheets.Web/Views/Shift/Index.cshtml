@@ -42,7 +42,7 @@
             <div class="panel-heading">
                 <div class="">
                     <h5 class="col-md-6 col-xs-6">@shift.StartDateTime.ToString("HH:mm") - @shift.FinishDateTime.ToString("HH:mm")</h5>
-                    <a href="@Url.Action("AddRemoveStaff", "Shift", new { id = shift.Id })" class ="btn btn-info btn-sm">Staff</a>
+                    <a href="@Url.Action("AddRemoveStaff", "Shift", new { id = shift.Id })" class ="btn btn-info btn-sm"  data-toggle="tooltip" data-placement="left" title="Add or Remove staff from this shift">Staff</a>
                 </div>
             </div>
             <div class="panel-body">
@@ -82,6 +82,6 @@
 
 
     <p>
-        @Html.ActionLink("New Shift", "Create", "Shift", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("New Shift", "Create", "Shift", null, new { @class = "btn btn-info"  , data_toggle="tooltip" ,data_placement="left" ,title="Create another shift"})
     </p>
 </div>

@@ -99,7 +99,7 @@
                                                                                 InsertionMode = InsertionMode.Replace,
                                                                                 OnBegin = "ClearResults(s" + Model.Id + ",f" + Model.Id + ",b" + Model.Id + ")"
                                                                             }
-                                                                            , new { @class = "btn btn-danger btn-xs" })
+                                                                            , new { @class = "btn btn-danger btn-xs" , data_toggle="tooltip" ,data_placement="left" ,title="Undo Mark as Sick"})
     }
     else
     {
@@ -111,7 +111,7 @@
                                                                                 OnBegin = "ClearResults(s" + Model.Id + ",f" + Model.Id + ",b" + Model.Id + ")"
 
                                                                             }
-                                                                            , new { @class = "btn btn-default btn-xs" })
+                                                                            , new { @class = "btn btn-default btn-xs", data_toggle="tooltip" ,data_placement="left" ,title="Mark as Sick"})
     }
     @if (Model.StaffOnleave)
     {
@@ -123,7 +123,7 @@
                                                                                     OnBegin = "ClearResults(s" + Model.Id + ",f" + Model.Id + ",b" + Model.Id + ")"
 
                                                                                 }
-                                                                                , new { @class = "btn btn-info btn-xs" })
+                                                                                , new { @class = "btn btn-info btn-xs"  , data_toggle="tooltip" ,data_placement="left" ,title="Undo Mark as On Leave"})
     }
     else
     {
@@ -134,11 +134,11 @@
                                                                                     InsertionMode = InsertionMode.Replace,
                                                                                     OnBegin = "ClearResults(s" + Model.Id + ",f" + Model.Id + ",b" + Model.Id + ")"
                                                                                 }
-                                                                                , new { @class = "btn btn-default btn-xs" })
+                                                                                , new { @class = "btn btn-default btn-xs" , data_toggle="tooltip" ,data_placement="left" ,title="Mark as On Leave"})
     
     }
 
-    <a href="@Url.Action("Edit", "StaffShift", new { id = Model.Id })" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-time"></span></a>
+    <a href="@Url.Action("Edit", "StaffShift", new { id = Model.Id })" class="btn btn-success btn-xs"   data-toggle="tooltip" data-placement="left" title="Manually Override Times"><span class="glyphicon glyphicon-time"></span></a>
 
 </td>
 

@@ -14,13 +14,13 @@ namespace TimeSheets.Web.ViewModels.StaffShiftVM
         public int StaffShiftId { get; set; }
 
         [Required]
-        [DisplayName("Paid Start Time")]
+        [DisplayName("Start")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
 
         public DateTime? OPaidStartTime { get; set; }//made these nullable due to use of textboxfor to display date, if wasnt nullable then textboxfor would display a date for null values
 
         [Required]
-        [DisplayName("Paid Finish Time")]
+        [DisplayName("Finish")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime? OPaidFinishTime { get; set; }
 
